@@ -67,4 +67,12 @@ class HomeController extends Controller
         $this->view['menus']=$menus;
         $this->view['images']=$images;
     }
+
+    public function testApi(){
+        $data = [
+            'test1' => '123',
+            'test2' => '456'
+        ];
+        return $data;
+    }
 }

@@ -28,56 +28,56 @@
             @endif
         @endisset
     </tr>
-    @isset($rows)
-        @if($module != 'Total' && $module != 'Bottom')
-            @foreach ($rows as $row)
-            <tr>
-                {{-- <td><img src="{{ asset('storage/'.$row->img) }}" style="width:300px;height:30px"></td>
-                <td>{{ $row->text }}</td>
-                <td><button class="btn btn-success btn-sm show" data-id="{{ $row->id }}">@if($row->sh==1) 顯示@else 隱藏 @endif</button></td>
-                <td><button class="btn btn-danger btn-sm delete" data-id="{{ $row->id }}">刪除</button></td>
-                <td><button class="btn btn-info btn-sm edit" data-id="{{ $row->id }}">編輯</button></td> --}}
-                @foreach ($row as $item)
-                    <td>
-                        @switch($item['tag'])
-                            @case('img')
-                            @include('layouts.img', $item)
-                            @break
-                            @case('button')
-                            @include('layouts.button', $item)
-                            @break
-                            @case('embed')
-                            @include('layouts.embed', $item)
-                            @break
-                            @case('textarea')
-                            @include('layouts.textarea', $item)
-                            @break
-                            @default
-                                {!! nl2br($item['text']) !!}
-                        @endswitch
-                    </td>
+        @isset($rows)
+            @if($module != 'Total' && $module != 'Bottom')
+                @foreach ($rows as $row)
+                <tr>
+                    {{-- <td><img src="{{ asset('storage/'.$row->img) }}" style="width:300px;height:30px"></td>
+                    <td>{{ $row->text }}</td>
+                    <td><button class="btn btn-success btn-sm show" data-id="{{ $row->id }}">@if($row->sh==1) 顯示@else 隱藏 @endif</button></td>
+                    <td><button class="btn btn-danger btn-sm delete" data-id="{{ $row->id }}">刪除</button></td>
+                    <td><button class="btn btn-info btn-sm edit" data-id="{{ $row->id }}">編輯</button></td> --}}
+                    @foreach ($row as $item)
+                        <td>
+                            @switch($item['tag'])
+                                @case('img')
+                                @include('layouts.img', $item)
+                                @break
+                                @case('button')
+                                @include('layouts.button', $item)
+                                @break
+                                @case('embed')
+                                @include('layouts.embed', $item)
+                                @break
+                                @case('textarea')
+                                @include('layouts.textarea', $item)
+                                @break
+                                @default
+                                    {!! nl2br($item['text']) !!}
+                            @endswitch
+                        </td>
+                    @endforeach
+                </tr>
                 @endforeach
-            </tr>
-            @endforeach
-        @else
-            <tr>
-                {{-- <td>進站總人數</td>
-                <td>0</td>
-                <td>編輯</td> --}}
-                <td>{{ $cols[0] }}</td>
-                <td>{{ $rows[0]['text'] }}</td>
-                <td>@include("layouts.button", $rows[1])</td>
-            </tr>
-        @endif
-    @endisset
-    </table>
-    @switch($module)
-        @case('Image')
-        @case('News')
-            {!! $paginate !!}
-        @break
-            
-    @endswitch
+            @else
+                <tr>
+                    {{-- <td>進站總人數</td>
+                    <td>0</td>
+                    <td>編輯</td> --}}
+                    <td>{{ $cols[0] }}</td>
+                    <td>{{ $rows[0]['text'] }}</td>
+                    <td>@include("layouts.button", $rows[1])</td>
+                </tr>
+            @endif
+        @endisset
+        </table>
+        @switch($module)
+            @case('Image')
+            @case('News')
+                {!! $paginate !!}
+            @break
+                
+        @endswitch
     </div>
 </div>
 
@@ -164,7 +164,8 @@ $(".show").on("click", function(){
                 $(".show").text("隱藏")
                 _this.text("顯示")
             }
-            $(".header img").attr("src", "http://test.example.com/storage/"+img)
+            $(".header img").attr("src", "{{ url('storage/') }}/"+img)
+            // $(".header img").attr("src", "http://test.example.com/storage/"+img)
         }
         @else
         success:function(){
